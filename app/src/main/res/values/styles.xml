@@ -1,23 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- the theme applied to the application or activity -->
+    <style name="CustomActionBarTheme"
+        parent="Theme.AppCompat.Light.NoActionBar">
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="@android:style/Theme.Holo.Light">
-        <!-- Customize your theme here. -->
+        <!--<item name="android:colorPrimary">#FFEB3B</item>-->
         <item name="android:actionBarStyle">@style/MyActionBar</item>
+        <item name="android:actionMenuTextColor">#000000</item>
+        <item name="android:textColorPrimary">#FFF</item>
+
+        <!-- Support library compatibility -->
+        <item name="colorPrimary">#FFEB3B</item>
+        <item name="actionBarStyle">@style/MyActionBar</item>
+        <item name="actionMenuTextColor">#000000</item>
     </style>
 
     <!-- ActionBar styles -->
     <style name="MyActionBar"
-        parent="@android:style/Widget.Holo.ActionBar">
-        parent="@style/Widget.Holo.ActionBar">
+        parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
+        <item name="android:background">#ffe822</item>
         <item name="android:titleTextStyle">@style/MyActionBarTitleText</item>
-        <item name="android:background">#FFEB3B</item>
+
+        <!-- Support library compatibility -->
+        <item name="background">@color/foo</item>
+        <item name="titleTextStyle">@style/MyActionBarTitleText</item>
     </style>
 
     <!-- ActionBar title text -->
     <style name="MyActionBarTitleText"
-        parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Title">
+        parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
         <item name="android:textColor">#000000</item>
+        <!-- The textColor property is backward compatible with the Support Library -->
     </style>
-
 </resources>
+
+    <!--<?xml version="1.0" encoding="utf-8"?>-->
+    <!--<resources>-->
+
+    <!--&lt;!&ndash; Base application theme. &ndash;&gt;-->
+    <!--<style name="AppTheme"-->
+    <!--parent="@style/Theme.AppCompat.Light">-->
+    <!--&lt;!&ndash; Customize your theme here. &ndash;&gt;-->
+    <!--&lt;!&ndash;<item name="android:actionBarStyle">@style/MyActionBar</item>&ndash;&gt;-->
+    <!--&lt;!&ndash; Support library compatibility &ndash;&gt;-->
+    <!--<item name="actionBarStyle">@style/MyActionBar</item>-->
+    <!--</style>-->
+
+
+
+    <!--&lt;!&ndash; ActionBar styles &ndash;&gt;-->
+    <!--<style name="MyActionBar"-->
+    <!--parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">-->
+    <!--<item name="android:titleTextStyle">@style/MyActionBarTitleText</item>-->
+    <!--<item name="android:background">#FFEB3B</item>-->
+    <!--</style>-->
+
+    <!--&lt;!&ndash; ActionBar title text &ndash;&gt;-->
+    <!--<style name="MyActionBarTitleText"-->
+    <!--parent="TextAppearance.AppCompat.Widget.ActionBar.Title">-->
+    <!--<item name="android:textColor">#000000</item>-->
+    <!--</style>-->
+
+    <!--</resources>-->

@@ -2,5 +2,12 @@
     <string name="app_name">1001 Smiles</string>
 
     <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Refresh</string>
+    <string name="action_settings">Contact Us</string>
+
+    <item name="foo" type="color">#FFEB3B</item>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_secondary">SecondaryActivity</string>
+    <string name="title_activity_camp_selection">CampSelectionActivity</string>
 </resources>

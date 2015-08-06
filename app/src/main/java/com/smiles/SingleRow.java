@@ -17,9 +17,10 @@ public class SingleRow {
         flag = false;
     }
 
-    public SingleRow(String m, String d) {
+    public SingleRow(String m, String d, String d2) {
         this.message = m;
         this.detail = d;
+        this.date = d2;
     }
 
     public String getMessage() {
@@ -50,5 +51,13 @@ public class SingleRow {
 
     public void setFlag(boolean flag) {
         this.flag = flag;
+    }
+
+    public void setFlag() {
+        if (flag) {
+            setFlag(false);
+        } else {
+            setFlag(true);
+        }
     }
 }

@@ -8,18 +8,18 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 
 /**
  * Created by ffas on 6/9/15.
  */
 public class FirebaseAdapter extends BaseAdapter {
 
-    ArrayList<SingleRow> list;
+    LinkedList<SingleRow> list;
     Context context;
     LayoutInflater inflater;
 
-    public FirebaseAdapter(ArrayList<SingleRow> list, Context c) {
+    public FirebaseAdapter(LinkedList<SingleRow> list, Context c) {
         this.list = list;
         this.context = c;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -54,13 +54,6 @@ public class FirebaseAdapter extends BaseAdapter {
         } else  {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-
-        View row = inflater.inflate(R.layout.row, parent, false);
-//        TextView title = (TextView) row.findViewById(R.id.textView);
-//        TextView detail = (TextView) row.findViewById(R.id.textView2);
-//        TextView date = (TextView) row.findViewById(R.id.textView3);
-//        ImageView icon = (ImageView) row.findViewById(R.id.read_icon);
-
         SingleRow temp = list.get(position);
 
         viewHolder.t1.setText(temp.getMessage());
@@ -73,14 +66,9 @@ public class FirebaseAdapter extends BaseAdapter {
         if (temp.getFlag()) {
             viewHolder.i1.setVisibility(View.VISIBLE);
         }
+        else
+            viewHolder.i1.setVisibility(View.INVISIBLE);
 
-//        parent.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                list.get(position).setFlag(true);
-//                Log.d("boolean", list.get(position).getFlag() + "");
-//            }
-//        });
 
         return convertView;
     }
@@ -91,10 +79,6 @@ public class FirebaseAdapter extends BaseAdapter {
         TextView t3;
         ImageView i1;
 
-    }
-
-    public void changeFlag(int position) {
-        list.get(position).setFlag(true);
     }
 
 }
