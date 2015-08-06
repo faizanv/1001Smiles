@@ -1,0 +1,18 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" tools:context="com.smiles.CampSelectionFragment"
+    android:orientation="vertical">
+
+    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:text="Select Your Camp"
+        android:layout_margin="25dp"
+        android:textSize="40sp"/>
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner"
+        android:layout_gravity="center_horizontal"/>
+
+
+</LinearLayout>
