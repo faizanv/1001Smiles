@@ -1,11 +1,13 @@
 package com.smiles;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.Collections;
@@ -38,13 +40,24 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
     public void onBindViewHolder(MyViewHolder holder, int position) {
         SingleRow temp = data.get(position);
         holder.t1.setText(temp.getMessage());
-        holder.t2.setText(temp.getDetail());
+//        holder.t2.setText(temp.getDetail());
         holder.t3.setText(temp.getDate());
 
         if (temp.getFlag()) {
             holder.i1.setVisibility(View.VISIBLE);
         } else {
             holder.i1.setVisibility(View.INVISIBLE);
+        }
+
+        switch (temp.getType().toLowerCase()) {
+            case "marketing":
+                holder.background.setBackgroundColor(Color.parseColor("#FF6F59"));
+                break;
+            case "alert":
+                holder.background.setBackgroundColor(Color.parseColor("#f02244"));
+                break;
+            case "content":
+                holder.background.setBackgroundColor(Color.parseColor("#0BACD3"));
         }
     }
 
@@ -60,17 +73,19 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
     class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView t1;
-        TextView t2;
+//        TextView t2;
         TextView t3;
         ImageView i1;
+        RelativeLayout background;
 
         public MyViewHolder(View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);
             t1 = (TextView) itemView.findViewById(R.id.textView);
-            t2 = (TextView) itemView.findViewById(R.id.textView2);
+//            t2 = (TextView) itemView.findViewById(R.id.textView2);
             t3 = (TextView) itemView.findViewById(R.id.textView3);
             i1 = (ImageView) itemView.findViewById(R.id.read_icon);
+            background = (RelativeLayout) itemView.findViewById(R.id.card_layout);
         }
 
         @Override

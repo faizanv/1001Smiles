@@ -15,7 +15,9 @@ import com.parse.SaveCallback;
 public class MyApplication extends Application {
 
     public void onCreate() {
-        Parse.initialize(this, "PkhBXQHKFDqNVNgsnYrNYVLOiFfdWkPpVCx1173K", "8iVNR9wZ51g0iun8uuoOhuJxWOCOgTik1oIAwfaO");
+        super.onCreate();
+        Parse.enableLocalDatastore(this);
+        Parse.initialize(this);
         ParseInstallation.getCurrentInstallation().saveInBackground();
         ParsePush.subscribeInBackground("", new SaveCallback() {
             @Override
@@ -27,5 +29,6 @@ public class MyApplication extends Application {
                 }
             }
         });
+
     }
 }

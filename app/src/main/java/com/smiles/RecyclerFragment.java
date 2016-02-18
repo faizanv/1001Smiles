@@ -9,6 +9,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -21,8 +22,15 @@ import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 
+import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 
@@ -37,9 +45,10 @@ public class RecyclerFragment extends Fragment implements RecyclerAdapter.ClickL
     public RecyclerView recyclerView;
     public RecyclerAdapter adapter;
     public LinkedList<SingleRow> notifList;
-    private Firebase ref;
+    Map<Date, SingleRow> retrieved;
     private SwipeRefreshLayout swipeRefreshLayout;
     private MainActivity activity;
+
 
     public RecyclerFragment() {
         // Required empty public constructor
@@ -52,6 +61,7 @@ public class RecyclerFragment extends Fragment implements RecyclerAdapter.ClickL
         adapter.notifyDataSetChanged();
         if (swipeRefreshLayout.isRefreshing()) {
             swipeRefreshLayout.setRefreshing(false);
+            Snackbar.make(getActivity().findViewById(R.id.main_linear_layout), "Refreshed", Snackbar.LENGTH_LONG).show();
         }
 //        if (recyclerView.isAttachedToWindow()) {
 //            Log.d("animating", "yes");
@@ -77,13 +87,13 @@ public class RecyclerFragment extends Fragment implements RecyclerAdapter.ClickL
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                setListData();
-                Snackbar.make(getActivity().findViewById(R.id.main_linear_layout), "Refreshed", Snackbar.LENGTH_LONG).show();
+                getFeed();
             }
         });
 
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
         notifList = new LinkedList<>();
+        retrieved = new HashMap<>();
         LinkedList<SingleRow> load = new LinkedList<>();
         load.add(new SingleRow("Loading...","Loading...","Loading..."));
         RecyclerAdapter dadapter = new RecyclerAdapter(getActivity(), load);
@@ -96,47 +106,7 @@ public class RecyclerFragment extends Fragment implements RecyclerAdapter.ClickL
         }
         adapter.setClickListener(this);
 
-        Firebase.setAndroidContext(getActivity());
-        ref = new Firebase("https://camp-mosaic.firebaseio.com/");
-
-        ref.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                swipeRefreshLayout.setRefreshing(true);
-                SingleRow foo = new SingleRow();
-                Map<String, Object> newPost = (Map<String, Object>) dataSnapshot.getValue();
-                foo.setMessage(newPost.get("msg").toString());
-                foo.setDetail(newPost.get("detail").toString());
-                if (newPost.get("date") == null) {
-                    foo.setDate("Some point in time");
-                } else {
-                    foo.setDate(newPost.get("date").toString());
-                }
-                notifList.add(0,foo);
-                setListData();
-                //Log.d("childAdd","date" + newPost.get("date"));
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onCancelled(FirebaseError firebaseError) {
-
-            }
-        });
+        getFeed();
 
         // Inflate the layout for this fragment
         return rootView;
@@ -145,10 +115,9 @@ public class RecyclerFragment extends Fragment implements RecyclerAdapter.ClickL
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-
-     menu.clear();
-     inflater.inflate(R.menu.menu_main, menu);
-     super.onCreateOptionsMenu(menu, inflater);
+         menu.clear();
+         inflater.inflate(R.menu.menu_main, menu);
+         super.onCreateOptionsMenu(menu, inflater);
       }
 
 
@@ -163,6 +132,7 @@ public class RecyclerFragment extends Fragment implements RecyclerAdapter.ClickL
         //Snackbar.make(getActivity().findViewById(R.id.main_linear_layout), notifList.get(position).getMessage(), Snackbar.LENGTH_SHORT).show();
         notifList.get(position).setFlag();
         adapter.notifyDataSetChanged();
+        setListData();
     }
 
     @Override
@@ -174,5 +144,27 @@ public class RecyclerFragment extends Fragment implements RecyclerAdapter.ClickL
     public void onResume() {
         super.onResume();
         setListData();
+    }
+
+    private void getFeed() {
+        swipeRefreshLayout.setRefreshing(true);
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Feed");
+        query.findInBackground(new FindCallback<ParseObject>() {
+            @Override
+            public void done(List<ParseObject> list, ParseException e) {
+                for (ParseObject obj: list) {
+                    if (!retrieved.containsKey(obj.getCreatedAt())) {
+                        SingleRow newRow = new SingleRow();
+                        newRow.setMessage(obj.get("Post").toString());
+//                        newRow.setDetail(obj.get("Type").toString());
+                        newRow.setDate(obj.getCreatedAt().toString());
+                        newRow.setType(obj.get("Type").toString());
+                        notifList.add(newRow);
+                        retrieved.put(obj.getCreatedAt(), newRow);
+                    }
+                }
+                setListData();
+            }
+        });
     }
 }

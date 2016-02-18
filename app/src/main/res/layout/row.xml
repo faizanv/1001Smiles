@@ -8,7 +8,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:id="@+id/card_layout">
 
         <TextView
             android:layout_width="wrap_content"
@@ -22,17 +23,18 @@
             android:layout_marginBottom="4dp"
             android:fontFamily="sans-serif-condensed"
             android:textStyle="bold"
-            android:textColor="#727272"/>
+            android:textColor="#FFF"/>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:textAppearanceMedium"
-            android:text="Medium Text"
-            android:id="@+id/textView2"
-            android:layout_alignLeft="@+id/textView"
-            android:textSize="20sp"
-            android:layout_below="@+id/textView"/>
+        <!--<TextView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:textAppearance="?android:textAppearanceMedium"-->
+            <!--android:text="Medium Text"-->
+            <!--android:id="@+id/textView2"-->
+            <!--android:layout_alignLeft="@+id/textView"-->
+            <!--android:textSize="20sp"-->
+            <!--android:layout_below="@+id/textView"-->
+            <!--android:visibility="invisible"/>-->
 
         <TextView
             android:layout_width="wrap_content"
@@ -40,7 +42,7 @@
             android:id="@+id/textView3"
             android:textAppearance="?android:textAppearanceSmall"
             android:text="date"
-            android:layout_below="@+id/textView2"
+            android:layout_below="@+id/textView"
             android:layout_alignLeft="@+id/textView"
             android:layout_marginTop="2dp"
             android:visibility="visible"/>

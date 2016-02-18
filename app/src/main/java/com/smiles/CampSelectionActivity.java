@@ -46,20 +46,20 @@ public class CampSelectionActivity extends AppCompatActivity implements AdapterV
         list.add("Florida");
         list.add("Atlanta Jr");
         list.add("Atlanta Sr");
-//        ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(this, R.layout.spinner_list_item, list);
-//        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(this, R.layout.spinner_list_item, list);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 //        spinner.setAdapter(dataAdapter);
-//        Button button = (Button) findViewById(R.id.go_button);
-//        button.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                SharedPreferences.Editor editor = getSharedPreferences("my_prefs", MODE_PRIVATE).edit();
-//                editor.putString("camp", "foo");
-//                editor.commit();
-//                finish();
-//                //startActivity(new Intent(getApplicationContext(), MainActivity.class));
-//            }
-//        });
+        Button button = (Button) findViewById(R.id.go_button);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences.Editor editor = getSharedPreferences("my_prefs", MODE_PRIVATE).edit();
+                editor.putString("camp", "foo");
+                editor.commit();
+                finish();
+                //startActivity(new Intent(getApplicationContext(), MainActivity.class));
+            }
+        });
     }
 
     @Override

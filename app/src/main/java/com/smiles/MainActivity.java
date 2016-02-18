@@ -3,6 +3,7 @@ package com.smiles;
 import android.app.FragmentManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -28,11 +29,7 @@ import java.util.LinkedList;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ListView listView;
-    private Firebase ref;
-    private LinkedList<SingleRow> notifList;
     private Menu optionsMenu;
-    FirebaseAdapter listAdapter;
     Toolbar toolbar;
     Intent intent;
     Intent chooser;
@@ -42,15 +39,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //setRefreshActionButtonState(false);
-
-        SharedPreferences pref = getSharedPreferences("my_prefs", MODE_PRIVATE);
-        String camp = pref.getString("camp", null);
-        if (camp == null) {
-            startActivity(new Intent(this, CampSelectionActivity.class));
-        } else {
-            ParsePush.subscribeInBackground(camp);
-        }
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.mipmap.ic_launcher);
@@ -66,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         CollapsingToolbarLayout collapsingToolbarLayout =
                 (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         collapsingToolbarLayout.setTitle("1001 Smiles");
-        collapsingToolbarLayout.setCollapsedTitleTextColor(getResources().getColor(R.color.black));
+        collapsingToolbarLayout.setCollapsedTitleTextColor(Color.parseColor("#000000"));
 
 //        getFragmentManager().beginTransaction().replace(R.id.container, new CampSelectionFragment()).commit();
         getFragmentManager().beginTransaction().replace(R.id.container, new RecyclerFragment(), RecyclerFragment.TAG).commit();

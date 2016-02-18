@@ -10,7 +10,11 @@
         <item name="android:textColorPrimary">#FFF</item>
 
         <!-- Support library compatibility -->
-        <item name="colorPrimary">#FFEB3B</item>
+        <!--<item name="colorPrimary">#ffeb3b</item>-->
+        <item name="colorPrimary">#D7CDCC</item>
+        <item name="colorPrimaryDark">#E4AD4F</item>
+        <item name="colorAccent">#ffeb3b</item>
+
         <item name="actionBarStyle">@style/MyActionBar</item>
         <item name="actionMenuTextColor">#000000</item>
     </style>

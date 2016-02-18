@@ -9,6 +9,7 @@ public class SingleRow {
     private String detail;
     private String date;
     private boolean flag;
+    private String type;
 
     public SingleRow() {
         message = "";
@@ -59,5 +60,13 @@ public class SingleRow {
         } else {
             setFlag(true);
         }
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

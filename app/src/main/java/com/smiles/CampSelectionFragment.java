@@ -27,7 +27,7 @@ public class CampSelectionFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_camp_selection, container, false);
 
         Spinner spinner = (Spinner) rootView.findViewById(R.id.spinner);
-        List<String> list = new ArrayList<String>();
+        List<String> list = new ArrayList<>();
         list.add("list 1");
         list.add("list 2");
         list.add("list 3");
